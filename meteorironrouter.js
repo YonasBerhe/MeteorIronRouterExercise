@@ -1,3 +1,5 @@
+Articles = new Meteor.Collection('articles');
+
 Router.map(function() {
   this.route('about');
   this.route('home', {
@@ -6,8 +8,10 @@ Router.map(function() {
 
   this.route('articles', {
     data: function() {
-      return Articles.find()
-
+      // return Articles.find()
+      return {
+        article: Articles.find()
+      };
     }
   });
 
@@ -23,3 +27,25 @@ Router.map(function() {
   });
 
 });
+
+if (Meteor.isServer) {
+
+  Meteor.startup(function() {
+    if (!Articles.findOne()) {
+      var articles = [{
+        title: 'Article 1',
+        body: 'This is article 1 '
+      }, {
+        title: 'Article 2',
+        body: 'This is article 2 '
+      }, {
+        title: 'Article 3',
+        body: 'This is article 3'
+      }];
+      articles.forEach(function(article) {
+        Articles.insert(article);
+      })
+    }
+
+  });
+}

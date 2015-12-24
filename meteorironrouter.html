@@ -1,14 +1,24 @@
-<head>
-  <title>meteorironrouter</title>
-</head>
+<template name="home">
+  <h2>Home</h2>
+  <p>You are on the home screen.</p>
+</template>
 
-<body>
-  <h1>Welcome to Meteor!</h1>
+<template name='about'>
+  <h2>About this site</h2>
+</template>
 
-  {{> hello}}
-</body>
+<template name='articles'>
+  <h2>Articles</h2>
+  <ul>
+    {{#each this}}
+    <li>
+      <a href="{{ pathFor 'article' }}"> {{title}} </a>
+    </li>
+    {{/each}}
+  </ul>
+</template>
 
-<template name="hello">
-  <button>Click Me</button>
-  <p>You've pressed the button {{counter}} times.</p>
+<template name='fullArticle'>
+  <h2>{{ title }}</h2>
+  <p>{{ body }}</p>
 </template>
