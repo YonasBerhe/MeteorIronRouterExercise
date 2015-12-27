@@ -1,3 +1,7 @@
+Router.configure({
+  layoutTemplate: 'layout'
+});
+
 Router.map(function() {
   this.route('about');
   this.route('home', {
@@ -23,3 +27,14 @@ Router.map(function() {
   });
 
 });
+
+
+if (Meteor.isClient) {
+  Template.navItems.helpers({
+    activeIfTemplateIs: function (template) {
+      var currentRoute = Router.current();
+      return currentRoute &&
+        template === currentRoute.lookupTemplate() ? 'active' : '';
+    }
+  });
+}
